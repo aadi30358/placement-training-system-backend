@@ -1,3 +1,5 @@
+package com.example.pts.config;
+
 @org.springframework.context.annotation.Configuration
 public class ModelMapperConfig {
     @org.springframework.context.annotation.Bean

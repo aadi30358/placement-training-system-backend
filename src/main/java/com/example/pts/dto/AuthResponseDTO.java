@@ -9,6 +9,7 @@ public class AuthResponseDTO {
     private String email;
     private String role;
     private String token;
+    private String profilePicture;
     private Boolean isProfileComplete;
     private Boolean isNewUser;
 }

@@ -19,10 +19,12 @@ public class AppUser {
     
     @Column(unique = true)
     private String email;
-    
+
     private String password;
     private String role;
     
+    private String profilePicture;
+
     // Optional fields depending on role setup
     private String roll; // for student
     private String company; // for employer

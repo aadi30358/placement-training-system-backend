@@ -199,21 +199,27 @@ return ResponseEntity.ok(mapToAuthResponse(user, token));
                 
                 String email = payload.getEmail();
                 String name = (String) payload.get("name");
+                String pictureUrl = (String) payload.get("picture");
 
                 Optional<AppUser> userOpt = userRepository.findByEmail(email);  
                 AppUser user;
                 boolean isNewUser = false;
                 if (userOpt.isPresent()) {
                     user = userOpt.get();
+                    if (pictureUrl != null) {
+                        user.setProfilePicture(pictureUrl);
+                        user = userRepository.save(user);
+                    }
                 } else {
                     isNewUser = true;
                     user = new AppUser();
                     user.setEmail(email);
                     user.setName(name);
+                    user.setProfilePicture(pictureUrl);
                     user.setRole(requestedRole != null ? requestedRole : "student");
                     user.setIsNewUser(true);
                     user.setIsProfileComplete(false);
-                    user.setPassword(UUID.randomUUID().toString());
+                    user.setPassword(passwordEncoder.encode(UUID.randomUUID().toString()));
                     user = userRepository.save(user);
                     autoCreateRoleEntry(user);
                 }
@@ -243,6 +249,7 @@ return ResponseEntity.ok(mapToAuthResponse(user, token));
         response.setEmail(user.getEmail());
         response.setRole(user.getRole());
         response.setToken(token != null ? token : user.getToken());
+        response.setProfilePicture(user.getProfilePicture());
         response.setIsProfileComplete(user.getIsProfileComplete());
         response.setIsNewUser(user.getIsNewUser());
         return response;
