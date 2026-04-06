@@ -51,7 +51,7 @@ public class AuthController {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
-    @Value("${google.clientId:478861245484-spgps6leq11l8sv7kqfqd56cgatss3pe.apps.googleusercontent.com}")
+    @Value("${google.clientId}")
     private String googleClientId;
 
     public AuthController(UserRepository userRepository, 
